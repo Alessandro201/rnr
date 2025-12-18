@@ -129,8 +129,8 @@ pub fn is_same_file(source: &Path, target: &Path) -> bool {
     // preserving file systems by default.
     #[cfg(any(windows, target_os = "macos"))]
     {
-        let source_metadata = fs::File::open(&source).unwrap().metadata().unwrap();
-        let target_metadata = fs::File::open(&target).unwrap().metadata().unwrap();
+        let source_metadata = fs::symlink_metadata(&source).unwrap();
+        let target_metadata = fs::symlink_metadata(&target).unwrap();
         let low_source = source.to_string_lossy().to_string().to_lowercase();
         let low_target = target.to_string_lossy().to_string().to_lowercase();
 
